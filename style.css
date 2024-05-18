@@ -1,91 +1,132 @@
 
 body {
-    margin: 0;
-    background: #020202;
-    cursor: crosshair;
-    overflow: hidden;
+  margin: 0;
+  background: #020202;
+  cursor: crosshair;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+}
+h4 {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-family: "Source Sans Pro";
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: "Bungee Spice", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.container-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: none;
+}
+.container-body {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.pop_up {
+  position: absolute;
+  top: 40%;
+  left: 0%;
+  width: 100%;
+}
+.pop_up .kohi {
+  display: flex;
+  justify-content: center;
+  gap: 1;
+  align-items: center;
+}
+.pop_up .kohi span {
+  font-size: 3.4rem;
+  color: rgba(255, 255, 255, 0.1);
+  animation: slide 1.6s linear infinite forwards;
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.pop_up .kohi span:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.pop_up .kohi span:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.pop_up .kohi span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.pop_up .kohi span:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.pop_up .kohi span:nth-child(5) {
+  animation-delay: 1s;
+}
+.pop_up .kohi span:nth-child(6) {
+  animation-delay: 1.2s;
+}
+.pop_up .kohi span:nth-child(7) {
+  animation-delay: 1.4s;
+}
+.pop_up .kohi span:nth-child(8) {
+  animation-delay: 1.6s;
+}
+@keyframes slide {
+  0% {
+    text-shadow: none;
   }
-  canvas {
-    display: block;
+  50% {
+    text-shadow: 1px 0px 4px #230ea6;
   }
-  h4 {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    font-family: "Source Sans Pro";
-    font-size: 2rem;
-    font-weight: 900;
-    text-align: center;
-    width: 100%;
-    -webkit-user-select: none;
-    user-select: none;
-    font-family: "Bungee Spice", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  100% {
+    text-shadow: none;
   }
-  .container-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: none;
-  }
-  .container-body {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  .pop_up {
-    position: absolute;
-    top: 40%;
-    left: 0%;
-    width: 100%;
-  }
-  .pop_up .kohi {
-    display: flex;
-    justify-content: center;
-    gap: 1;
-    align-items: center;
-  }
-  .pop_up .kohi span {
-    font-size: 3.4rem;
-    color: rgba(255, 255, 255, 0.1);
-    animation: slide 1.6s linear infinite forwards;
-    font-family: "Dancing Script", cursive;
-    font-optical-sizing: auto;
-    font-style: normal;
-  }
-  .pop_up .kohi span:nth-child(1) {
-    animation-delay: 0.2s;
-  }
-  .pop_up .kohi span:nth-child(2) {
-    animation-delay: 0.4s;
-  }
-  .pop_up .kohi span:nth-child(3) {
-    animation-delay: 0.6s;
-  }
-  .pop_up .kohi span:nth-child(4) {
-    animation-delay: 0.8s;
-  }
-  .pop_up .kohi span:nth-child(5) {
-    animation-delay: 1s;
-  }
-  .pop_up .kohi span:nth-child(6) {
-    animation-delay: 1.2s;
-  }
-  .pop_up .kohi span:nth-child(7) {
-    animation-delay: 1.4s;
-  }
-  .pop_up .kohi span:nth-child(8) {
-    animation-delay: 1.6s;
-  }
-  @keyframes slide {
-    0% {
-      text-shadow: none;
-    }
-    50% {
-      text-shadow: 1px 0px 4px #230ea6;
-    }
-    100% {
-      text-shadow: none;
-    }
-  }
+}
+
+
+audio {
+  margin: 2rem auto;
+  background: transparent;
+  border-radius: 6rem;
+  box-shadow: 0 4px 10px black;
+  width: 24rem;
+  height: 3rem;
+}
+audio::-webkit-media-controls-panel {
+  background: radial-gradient(
+    circle,
+    rgba(241, 242, 245, 1) 0%,
+    rgba(137, 46, 159, 1) 99%,
+    rgba(244, 185, 252, 0.9906337535014006) 100%
+  );
+  color: white;
+  padding: 0.5rem;
+  height: auto;
+}
+
+audio::-webkit-media-controls-volume-slider {
+  background-color: #000;
+  border-radius: 25px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.bi-play-circle-fill{
+  color: #fff;
+  font-size: 30px;
+}
+
+.play-button{
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  display: none;
+  cursor: pointer;
+}
