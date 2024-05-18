@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div id="containerWrapper" class="container-wrapper">
+      <div class="container-body">
+        <h4>Happy Birthday</h4>
+        <div class="pop_up container-fluid">
+          <div class="container h-100">
+            <div class="row h-100">
+              <div
+                class="col-12 d-flex justify-content-center align-items-end valn_box"
+              >
+                <div class="text-wrapper">
+                  <div class="kohi text-center">
+                    <span class="span-tag">&#128151;</span>
+                    <span class="span-tag">D</span>
+                    <span class="span-tag">E</span>
+                    <span class="span-tag">E</span>
+                    <span class="span-tag">P</span>
+                    <span class="span-tag">A</span>
+                    <span class="span-tag">L</span>
+                    <span class="span-tag">&#128151;</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <canvas id="birthday"></canvas>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // change color
+
+        // function getRandomColor() {
+        //   const letters = "0123456789ABCDEF";
+        //   let color = "#";
+        //   for (let i = 0; i < 6; i++) {
+        //     color += letters[Math.floor(Math.random() * 16)];
+        //   }
+        //   return color;
+        // }
+
+        // function addKeyframesRule(sheet, name, keyframes) {
+        //   if (sheet.insertRule) {
+        //     sheet.insertRule(
+        //       "@keyframes " + name + " {" + keyframes + "}",
+        //       sheet.cssRules.length
+        //     );
+        //   } else {
+        //     sheet.appendRule("@keyframes " + name + " {" + keyframes + "}");
+        //   }
+        // }
+
+        // function updateColorAnimation() {
+        //   const randomColor = getRandomColor();
+        //   const keyframes = `
+        //         0%, 100% { color: rgba(255, 255, 255, 0.1); }
+        //         50% { color: ${randomColor}; }
+        //     `;
+        //   const sheet = document.styleSheets[0];
+        //   const ruleName = "colorChange";
+        //   // Remove the old keyframe rule
+        //   for (let i = sheet.cssRules.length - 1; i >= 0; i--) {
+        //     if (sheet.cssRules[i].name === ruleName) {
+        //       sheet.deleteRule(i);
+        //     }
+        //   }
+        //   // Add the new keyframe rule
+        //   addKeyframesRule(sheet, ruleName, keyframes);
+        //   // Apply the animation
+        //   const spans = document.querySelectorAll(".span-tag");
+        //   console.log(spans);
+        //   spans.forEach((span) => {
+        //     span.style.animation = `slide 1.6s linear infinite forwards, colorChange 5s linear infinite`;
+        //   });
+        // }
+
+        // setInterval(updateColorAnimation, 1000);
+
+        function getRandomColor() {
+          const letters = "0123456789ABCDEF";
+          let color = "#";
+          for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        }
+
+        function changeTextColor() {
+          const spans = document.querySelectorAll(".pop_up .kohi span");
+          spans.forEach((span) => {
+            const randomColor = getRandomColor();
+            span.style.color = randomColor;
+          });
+        }
+
+        // Change color every second without interfering with CSS animations
+        setInterval(changeTextColor, 500);
+      });
+      // helper functions
+      const PI2 = Math.PI * 2;
+      const random = (min, max) => (Math.random() * (max - min + 1) + min) | 0;
+      const timestamp = (_) => new Date().getTime();
+      const allSpenTag = document.querySelectorAll(".span-tag");
+     const textShow = document.getElementById("containerWrapper")
+      // container
+
+      class Birthday {
+        constructor() {
+          this.resize();
+
+          // create a lovely place to store the firework
+          this.fireworks = [];
+          this.counter = 0;
+          this.fireworkDelay = 5000; // Delay before fireworks start (in milliseconds)
+        }
+
+        resize() {
+          this.width = canvas.width = window.innerWidth;
+          let center = (this.width / 2) | 0;
+          this.spawnA = (center - center / 4) | 0;
+          this.spawnB = (center + center / 4) | 0;
+
+          this.height = canvas.height = window.innerHeight;
+          this.spawnC = this.height * 0.1;
+          this.spawnD = this.height * 0.5;
+          this.drawBackground();
+        }
+
+        drawBackground() {
+          // Load the background image
+          let backgroundImage = new Image();
+          backgroundImage.src = "./img.jpeg";
+
+          // Once the image is loaded, draw it on the canvas
+          backgroundImage.onload = () => {
+            ctx.drawImage(backgroundImage, 0, 0, this.width, this.height);
+          };
+        }
+
+        onClick(evt) {
+          let x = evt.clientX || (evt.touches && evt.touches[0].pageX);
+          let y = evt.clientY || (evt.touches && evt.touches[0].pageY);
+
+          // Delay the appearance of fireworks
+          setTimeout(() => {
+            this.initiateFireworks(x, y);
+          }, this.fireworkDelay);
+        }
+
+        update(delta) {
+          setTimeout(() => {
+            ctx.globalCompositeOperation = "hard-light";
+            ctx.fillStyle = `rgba(20,20,20,${7 * delta})`;
+            ctx.fillRect(0, 0, this.width, this.height);
+
+            ctx.globalCompositeOperation = "lighter";
+            for (let firework of this.fireworks) firework.update(delta);
+            textShow.style.display = "block"
+          }, 2000);
+
+          // if enough time passed... create new new firework
+          this.counter += delta * 3; // each second
+          if (this.counter >= 1) {
+            this.fireworks.push(
+              new Firework(
+                random(this.spawnA, this.spawnB),
+                this.height,
+                random(0, this.width),
+                random(this.spawnC, this.spawnD),
+                random(0, 360),
+                random(30, 110)
+              )
+            );
+            this.counter = 0;
+          }
+
+          // remove the dead fireworks
+          if (this.fireworks.length > 1000)
+            this.fireworks = this.fireworks.filter(
+              (firework) => !firework.dead
+            );
+        }
+      }
+
+      class Firework {
+        constructor(x, y, targetX, targetY, shade, offsprings) {
+          this.dead = false;
+          this.offsprings = offsprings;
+
+          this.x = x;
+          this.y = y;
+          this.targetX = targetX;
+          this.targetY = targetY;
+
+          this.shade = shade;
+          this.history = [];
+        }
+        update(delta) {
+          if (this.dead) return;
+
+          let xDiff = this.targetX - this.x;
+          let yDiff = this.targetY - this.y;
+          if (Math.abs(xDiff) > 3 || Math.abs(yDiff) > 3) {
+            // is still moving
+            this.x += xDiff * 2 * delta;
+            this.y += yDiff * 2 * delta;
+
+            this.history.push({
+              x: this.x,
+              y: this.y,
+            });
+
+            if (this.history.length > 20) this.history.shift();
+          } else {
+            if (this.offsprings && !this.madeChilds) {
+              let babies = this.offsprings / 2;
+              for (let i = 0; i < babies; i++) {
+                let targetX =
+                  (this.x + this.offsprings * Math.cos((PI2 * i) / babies)) | 0;
+                let targetY =
+                  (this.y + this.offsprings * Math.sin((PI2 * i) / babies)) | 0;
+
+                birthday.fireworks.push(
+                  new Firework(this.x, this.y, targetX, targetY, this.shade, 0)
+                );
+              }
+            }
+            this.madeChilds = true;
+            this.history.shift();
+          }
+
+          if (this.history.length === 0) this.dead = true;
+          else if (this.offsprings) {
+            for (let i = 0; this.history.length > i; i++) {
+              let point = this.history[i];
+              ctx.beginPath();
+              ctx.fillStyle = "hsl(" + this.shade + ",100%," + i + "%)";
+              ctx.arc(point.x, point.y, 1, 0, PI2, false);
+              ctx.fill();
+            }
+          } else {
+            ctx.beginPath();
+            ctx.fillStyle = "hsl(" + this.shade + ",100%,50%)";
+            ctx.arc(this.x, this.y, 1, 0, PI2, false);
+            ctx.fill();
+          }
+        }
+      }
+
+      let canvas = document.getElementById("birthday");
+      let ctx = canvas.getContext("2d");
+
+      let then = timestamp();
+
+      let birthday = new Birthday();
+      window.onresize = () => birthday.resize();
+      document.onclick = (evt) => birthday.onClick(evt);
+      document.ontouchstart = (evt) => birthday.onClick(evt);
+      (function loop() {
+        requestAnimationFrame(loop);
+
+        let now = timestamp();
+        let delta = now - then;
+
+        then = now;
+        birthday.update(delta / 1000);
+      })();
+    </script>
+  </body>
+</html>
